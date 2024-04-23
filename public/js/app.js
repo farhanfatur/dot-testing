@@ -2250,13 +2250,15 @@ function Home(props) {
           case 2:
             post = _context.sent;
             response = post.data.data;
-            for (i = 0; i < post.data.data.length; i++) {
-              setCategory(function (old) {
-                return [].concat(_toConsumableArray(old), [response[i].category]);
-              });
-              setData(function (old) {
-                return [].concat(_toConsumableArray(old), [response[i].count]);
-              });
+            if (response.length > 0) {
+              for (i = 0; i < response.length; i++) {
+                setCategory(function (old) {
+                  return [].concat(_toConsumableArray(old), [response[i].category]);
+                });
+                setData(function (old) {
+                  return [].concat(_toConsumableArray(old), [response[i].count]);
+                });
+              }
             }
           case 5:
           case "end":
@@ -2285,7 +2287,7 @@ function Home(props) {
         className: "row",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "col-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__.Pie, {
+          children: data.length > 0 && category.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__.Pie, {
             data: {
               labels: category,
               datasets: [{
@@ -2294,6 +2296,8 @@ function Home(props) {
                 backgroundColor: ['rgba(43, 147, 225, 0.5)', 'rgba(213, 243, 53, 0.5)', 'rgba(243, 90, 53, 0.5)']
               }]
             }
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+            children: "No Data"
           })
         })
       })]

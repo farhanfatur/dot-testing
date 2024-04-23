@@ -29,9 +29,11 @@ function Home(props) {
             token: props.token
         })
         const response = post.data.data
-        for(var i = 0;i < post.data.data.length;i++) {
-            setCategory(old => [...old, response[i].category])
-            setData(old => [...old, response[i].count])
+        if (response.length > 0) {
+            for(var i = 0;i < response.length;i++) {
+                setCategory(old => [...old, response[i].category])
+                setData(old => [...old, response[i].count])
+            }
         }
     }
 
@@ -48,7 +50,7 @@ function Home(props) {
                 <h5 className="card-title">Dashboard Example</h5>
                 <div className="row">
                     <div className="col-6">
-                        <Pie data={{
+                        {data.length > 0 && category.length > 0 ? <Pie data={{
                             labels: category,
                             datasets: [
                                 {
@@ -61,7 +63,7 @@ function Home(props) {
                                     ]
                                 }
                             ]
-                        }} />
+                        }} /> : <p>No Data</p>}
                     </div>
                 </div>
             </div>
