@@ -33,6 +33,8 @@ function Post(props) {
             PostService.remove(data).then((e) => {
                 setAlertDelete(true)
                 setMsgDelete(e.data.message)
+                getPost()
+                return
             })
         }
     }
